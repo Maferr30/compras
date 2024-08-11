@@ -139,11 +139,11 @@
                 <tbody>
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">Polar</th>
-                        <td class="px-4 py-3">0412-000000</td>
-                        <td class="px-4 py-3">Altamira</td>
-                        <td class="px-4 py-3">pepito@gmail.com</td>
-                        <td class="px-4 py-3">J-12345678-1</td>
-                        <td class="px-4 py-3">Tomate</td>
+                        <td class="px-4 py-3 text-gray-900">0412-000000</td>
+                        <td class="px-4 py-3 text-gray-900">Altamira</td>
+                        <td class="px-4 py-3 text-gray-900">pepito@gmail.com</td>
+                        <td class="px-4 py-3 text-gray-900">J-12345678-1</td>
+                        <td class="px-4 py-3 text-gray-900">Tomate</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-2">
                                 <!-- Botón Editar -->
@@ -173,11 +173,11 @@
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">Alimentos del
                             Campo</th>
-                        <td class="px-4 py-3">0416-123456</td>
-                        <td class="px-4 py-3">El Recreo</td>
-                        <td class="px-4 py-3">contacto@campocalidad.com</td>
-                        <td class="px-4 py-3">J-65432100-1</td>
-                        <td class="px-4 py-3">Jabon</td>
+                        <td class="px-4 py-3 text-gray-900">0416-123456</td>
+                        <td class="px-4 py-3 text-gray-900">El Recreo</td>
+                        <td class="px-4 py-3 text-gray-900">contacto@campocalidad.com</td>
+                        <td class="px-4 py-3 text-gray-900">J-65432100-1</td>
+                        <td class="px-4 py-3 text-gray-900">Jabon</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-2">
                                 <!-- Botón Editar -->
