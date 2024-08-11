@@ -5,7 +5,9 @@
     <div class="py-8 px-16 max-w-4x4">
         <h2 class="mb-4 text-3xl font-semibold text-gray-900">Proveedores</h2>
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
-            <form action="#">
+
+            <form action="{{ route('proveedor.store') }}" method="POST">
+                @csrf
                 <div class="grid gap-4 px-18  sm:grid-cols-2 sm:gap-6">
                     <div class="sm:col-span-2 flex space-x-4">
                         <div class="w-full">
@@ -91,24 +93,21 @@
 
                     <div>
                         <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900">Categorías</label>
-                        <select id="categoria"
-                            class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
-                            <option selected>Seleccione Categoría</option>
-                            <option value="Limpieza">Productos Limpieza</option>
-                            <option value="Utensilios">Utensilios</option>
-                            <option value="Hortalizas">Hortalizas</option>
-                            <option value="Vajillas">Vajillas</option>
+                        <select id="categorias_idcategorias" name="categorias_idcategorias" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"> 
+                        <option value="">Seleccionar Categoría</option>
+                        @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->idcategorias }}" {{ old('categorias_idcategorias') == $categoria->idcategorias ? 'selected' : '' }}>{{ $categoria->nombre_categoria}}</option>
+                        @endforeach
                         </select>
                     </div>
+
                     <div>
                         <label for="suministro" class="block mb-2 text-sm font-medium text-gray-900">Suministro</label>
-                        <select id="suministro"
-                            class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
-                            <option selected>Seleccione Suministro</option>
-                            <option value="Jabon">Jabón</option>
-                            <option value="Tenedor">Tenedor</option>
-                            <option value="Tomate">Tomate</option>
-                            <option value="Plato">Plato</option>
+                        <select id="Suministro_idSuministro" name="Suministro_idSuministro" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"> 
+                        <option value="">Seleccionar Suministro</option>
+                        @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->idcategorias }}" {{ old('categorias_idcategorias') == $categoria->idcategorias ? 'selected' : '' }}>{{ $categoria->nombre_categoria}}</option>
+                        @endforeach
                         </select>
                     </div>
                 </div>
@@ -137,14 +136,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b">
-                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">Polar</th>
-                        <td class="px-4 py-3 text-gray-900">0412-000000</td>
-                        <td class="px-4 py-3 text-gray-900">Altamira</td>
-                        <td class="px-4 py-3 text-gray-900">pepito@gmail.com</td>
-                        <td class="px-4 py-3 text-gray-900">J-12345678-1</td>
-                        <td class="px-4 py-3 text-gray-900">Tomate</td>
-                        <td class="px-4 py-3">
+
+                @foreach($proveedores as $proveedor)
+                <tr class="bg-white border-b">
+                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap"> {{ $proveedor->nombre_empresa }}</th>
+                <td class="px-4 py-3 text-gray-900">{{ $proveedor->telefono_proveedor }}</td>
+                <td class="px-4 py-3 text-gray-900">{{ $proveedor->direccion_empresa }}</td>
+                <td class="px-4 py-3 text-gray-900">{{ $proveedor->correo_proveedor }}</td>
+                <td class="px-4 py-3 text-gray-900">{{ $proveedor->rif }}</td>
+                <td class="px-4 py-3 text-gray-900">{{ $proveedor->nombre_suministro}}</td>
+                <td class="px-4 py-3">
                             <div class="flex items-center space-x-2">
                                 <!-- Botón Editar -->
                                 <button class="flex items-center text-blue-600 hover:underline mr-4">
@@ -170,6 +171,7 @@
                             </div>
                         </td>
                     </tr>
+                    @endforeach
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">Alimentos del
                             Campo</th>
