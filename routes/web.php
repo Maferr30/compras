@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\proveedorController;
+use App\Http\Controllers\OrdenCompraController;
 
 // Ruta proveedor
 Route::get('/', [proveedorController::class, 'create'])->name('proveedor');

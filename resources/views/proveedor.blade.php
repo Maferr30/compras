@@ -6,6 +6,15 @@
         <h2 class="mb-4 text-3xl font-semibold text-gray-900">Proveedores</h2>
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
 
+        @if ($errors->any())
+    <div class="bg-white-500 text-blue-600 p-4 rounded-lg mb-4">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
             <form action="{{ route('proveedor.store') }}" method="POST">
                 @csrf
                 <div class="grid gap-4 px-18  sm:grid-cols-2 sm:gap-6">
@@ -93,7 +102,7 @@
 
                     <div>
                         <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900">Categorías</label>
-                        <select id="categorias_idcategorias" name="categorias_idcategorias" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"> 
+                        <select id="categorias_idcategorias" name="categorias[]" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"> 
                         <option value="">Seleccionar Categoría</option>
                         @foreach($categorias as $categoria)
                         <option value="{{ $categoria->idcategorias }}" {{ old('categorias_idcategorias') == $categoria->idcategorias ? 'selected' : '' }}>{{ $categoria->nombre_categoria}}</option>
@@ -105,8 +114,8 @@
                         <label for="suministro" class="block mb-2 text-sm font-medium text-gray-900">Suministro</label>
                         <select id="Suministro_idSuministro" name="Suministro_idSuministro" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"> 
                         <option value="">Seleccionar Suministro</option>
-                        @foreach($categorias as $categoria)
-                        <option value="{{ $categoria->idcategorias }}" {{ old('categorias_idcategorias') == $categoria->idcategorias ? 'selected' : '' }}>{{ $categoria->nombre_categoria}}</option>
+                        @foreach($sumi as $suministro)
+                        <option value="{{ $suministro->idSuministro }}" {{ old('Suministro_idSuministro') == $suministro->idSuministro ? 'selected' : '' }}>{{ $suministro->nombre_suministro}}</option>
                         @endforeach
                         </select>
                     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proveedore;
 use App\Models\Categoria;
+use App\Models\Suministro;
 use Illuminate\Http\Request;
 
 class ProveedorController extends Controller
@@ -11,9 +12,10 @@ class ProveedorController extends Controller
     public function create()
     {
         $categorias = Categoria::all();
+        $sumi = Suministro::all();
         $proveedores = Proveedore::with('categorias')->get();
-        return view('proveedor', compact('categorias', 'proveedores'));
-    } 
+        return view('proveedor', compact('categorias', 'proveedores', 'sumi' ));
+    }
 
     public function store(Request $request)
 {
@@ -46,8 +48,10 @@ class ProveedorController extends Controller
     $proveedor->rif = $validatedData['rif'];
     $proveedor->direccion_empresa = $validatedData['direccion_empresa']; 
     $proveedor->correo_proveedor = $validatedData['correo_proveedor'];
-    $proveedor->categorias_idcategorias = $validatedData['categoria'];
     $proveedor->save();
+
+    $proveedor->categorias()->attach($validatedData['categorias']);
+    $proveedor->suministros()->attach($validatedData['Suministro_idSuministro']);
 
     return redirect()->route('proveedor.create')->with('success', 'Proveedor registrado exitosamente');
 }
