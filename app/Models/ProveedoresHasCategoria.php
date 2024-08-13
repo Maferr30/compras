@@ -11,21 +11,21 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class ProveedoresHasCategoria
  * 
- * @property int $idProveedores_has_categoriascol
+ * @property int $idProveedores_has_Categorias
  * @property int $Proveedores_idProveedores
- * @property int $categorias_idcategorias
+ * @property int $Categorias_idCategorias
  *
  * @package App\Models
  */
 class ProveedoresHasCategoria extends Model
 {
-	protected $table = 'proveedores_has_categorias';
-	protected $primaryKey = 'idProveedores_has_categoriascol';
+	protected $table = 'Proveedores_has_Categorias';
+	protected $primaryKey = 'idProveedores_has_Categorias';
 	public $timestamps = false;
 
 	protected $casts = [
 		'Proveedores_idProveedores' => 'int',
-		'categorias_idcategorias' => 'int'
+		'Categorias_idCategorias' => 'int'
 	];
 
 	protected $fillable = [

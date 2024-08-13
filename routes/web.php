@@ -15,6 +15,10 @@ Route::get('/ordencompra', function () {
     return view('ordencompra');
 })->name('ordencompra');
 
+Route::get('ordencompra', [OrdenCompraController::class, 'create'])->name('ordencompra');
+Route::post('ordencompra', [OrdenCompraController::class, 'store'])->name('ordencompra.store');
+Route::get('/ordencompra/create', [OrdenCompraController::class, 'create'])->name('ordencompra.create');
+
 // Ruta recepcion
 Route::get('/recepcion', function () {
     return view('recepcion');

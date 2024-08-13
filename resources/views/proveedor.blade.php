@@ -102,20 +102,10 @@
 
                     <div>
                         <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900">Categorías</label>
-                        <select id="categorias_idcategorias" name="categorias[]" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"> 
+                        <select id="categorias" name="categorias[]" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"> 
                         <option value="">Seleccionar Categoría</option>
                         @foreach($categorias as $categoria)
                         <option value="{{ $categoria->idcategorias }}" {{ old('categorias_idcategorias') == $categoria->idcategorias ? 'selected' : '' }}>{{ $categoria->nombre_categoria}}</option>
-                        @endforeach
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="suministro" class="block mb-2 text-sm font-medium text-gray-900">Suministro</label>
-                        <select id="Suministro_idSuministro" name="Suministro_idSuministro" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"> 
-                        <option value="">Seleccionar Suministro</option>
-                        @foreach($sumi as $suministro)
-                        <option value="{{ $suministro->idSuministro }}" {{ old('Suministro_idSuministro') == $suministro->idSuministro ? 'selected' : '' }}>{{ $suministro->nombre_suministro}}</option>
                         @endforeach
                         </select>
                     </div>
@@ -140,7 +130,7 @@
                         <th scope="col" class="px-4 py-3">Direccion</th>
                         <th scope="col" class="px-4 py-3">Correo</th>
                         <th scope="col" class="px-4 py-3">Rif</th>
-                        <th scope="col" class="px-4 py-3">Suministro</th>
+                        <th scope="col" class="px-4 py-3">Categoria</th>
                         <th scope="col" class="px-4 py-3">Acciones</th>
                     </tr>
                 </thead>
@@ -153,7 +143,7 @@
                 <td class="px-4 py-3 text-gray-900">{{ $proveedor->direccion_empresa }}</td>
                 <td class="px-4 py-3 text-gray-900">{{ $proveedor->correo_proveedor }}</td>
                 <td class="px-4 py-3 text-gray-900">{{ $proveedor->rif }}</td>
-                <td class="px-4 py-3 text-gray-900">{{ $proveedor->nombre_suministro}}</td>
+                <td class="px-4 py-3 text-gray-900">{{ $proveedor->nombre_categoria}}</td>
                 <td class="px-4 py-3">
                             <div class="flex items-center space-x-2">
                                 <!-- Botón Editar -->
@@ -188,7 +178,7 @@
                         <td class="px-4 py-3 text-gray-900">El Recreo</td>
                         <td class="px-4 py-3 text-gray-900">contacto@campocalidad.com</td>
                         <td class="px-4 py-3 text-gray-900">J-65432100-1</td>
-                        <td class="px-4 py-3 text-gray-900">Jabon</td>
+                        <td class="px-4 py-3 text-gray-900"></td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-2">
                                 <!-- Botón Editar -->

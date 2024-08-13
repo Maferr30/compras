@@ -56,4 +56,16 @@ class OrdenesCompra extends Model
 		'Proveedores_idProveedores',
 		'Suministros_idSuministro'
 	];
+	public function proveedore()
+    {
+        return $this->belongsTo(Proveedore::class, 'Proveedores_idProveedores');
+    }
+	public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'Empleados_idEmpleados');
+    }
+	public function suministro()
+    {
+        return $this->belongsTo(Suministro::class, 'Suministros_idSuministro');
+    }
 }

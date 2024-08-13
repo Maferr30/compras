@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $direccion_empresa
  * @property string $correo_proveedor
  * @property string $rif
+ * @property int $categorias_idcategorias
  *
  * @package App\Models
  */
@@ -33,4 +34,14 @@ class Proveedore extends Model
 		'correo_proveedor',
 		'rif'
 	];
+    public function categorias()   
+    {
+        return $this->belongsToMany(Categoria::class, 'proveedores_has_categorias', 'Proveedores_idProveedores', 'categorias_idcategorias');
+    }
+	public function suministros()
+	{
+		return $this->belongsToMany(Suministro::class, 'proveedores_has_suministro', 'Proveedores_idProveedores', 'Suministro_idSuministro')
+					->withPivot('idProveedores_has_Suministro');
+	}
+
 }

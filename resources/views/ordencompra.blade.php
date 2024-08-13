@@ -5,7 +5,17 @@
     <div class="py-8 px-16 max-w-4x4">
         <h2 class="mb-4 text-3xl font-semibold text-gray-900">Orden de Compra</h2>
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
-            <form action="">
+
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+            <form action="{{ route('ordencompra.store') }}" method="POST">
             @csrf
                 <div class="grid gap-4 px-18  sm:grid-cols-2 sm:gap-6">
                     <div class="sm:col-span-2 flex space-x-4">
@@ -23,7 +33,7 @@
                             <label for="fecha_entrega" class="block mb-2 text-sm font-medium text-gray-900">Fecha
                                 Entrega</label>
                             <div class="relative">
-                                <input type="date" name="fecha_entrega" id="fecha_entraga"
+                                <input type="date" name="fecha_entraga" id="fecha_entraga"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"
                                     required>
                             </div>
@@ -33,35 +43,33 @@
                     <div class="sm:col-span-2 flex space-x-4">
                         <div class="w-full">
                             <label for="empleado" class="block mb-2 text-sm font-medium text-gray-900">Empleado</label>
-                            <select id="Empleados_idEmpleados"
-                                class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
+                            <select id="Empleados_idEmpleados" name="Empleados_idEmpleados" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
                                 <option selected>Seleccione Empleado</option>
-                                <option value="maria">Maria Fernanda</option>
-                                <option value="juan">Juan Pernia</option>
+                                @foreach($empleados as $empleado)
+                                <option value="{{ $empleado->idEmpleados }}" {{ old('Empleados_idEmpleados') == $empleado->idEmpleados ? 'selected' : '' }}>{{ $empleado->nombre_empleado}}{{ $empleado->apellido_empleado }}</option>
+                        @endforeach
                             </select>
                         </div>
 
                         <div class="w-full">
                             <label for="proveedor"
                                 class="block mb-2 text-sm font-medium text-gray-900">Proveedor</label>
-                            <select id="Proveedores_idProveedores"
-                                class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
+                            <select id="Proveedores_idProveedores" name="Proveedores_idProveedores" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
                                 <option selected>Seleccione Proveedor</option>
-                                <option value="polar">Empresas Polar</option>
-                                <option value="del campo">Alimentos del Campo</option>
+                                @foreach($pro as $zion)
+                    <option value="{{ $zion->idProveedores }}" {{ old('Proveedores_idProveedores') == $zion->idProveedores ? 'selected' : '' }}>{{ $zion->nombre_empresa }}</option>
+                    @endforeach
                             </select>
                         </div>
 
                         <div class="w-full">
                             <label for="suministro"
                                 class="block mb-2 text-sm font-medium text-gray-900">Suministro</label>
-                            <select id="Suministros_idSuministro"
-                                class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
+                            <select id="Suministros_idSuministro" name="Suministros_idSuministro" class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
                                 <option selected>Seleccione Suministro</option>
-                                <option value="Jabon">Jabón</option>
-                                <option value="Tenedor">Tenedor</option>
-                                <option value="Tomate">Tomate</option>
-                                <option value="Plato">Plato</option>
+                                @foreach($suminis as $suministro)
+                        <option value="{{ $suministro->idSuministro }}" {{ old('Suministros_idSuministro') == $suministro->idSuministro ? 'selected' : '' }}>{{ $suministro->nombre_suministro}}</option>
+                        @endforeach
                             </select>
                         </div>
                     </div>
@@ -87,7 +95,7 @@
                             <label for="precio_unitario" class="block mb-2 text-sm font-medium text-gray-900">Precio
                                 Unitario</label>
                             <div class="relative">
-                                <input type="text" name="precio_unitario" id="precio_unitario   "
+                                <input type="text" name="precio unitario" id="precio_unitario   "
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"
                                     placeholder="0000,00 $" required>
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -106,7 +114,7 @@
                         <div class="w-full">
                             <label for="total" class="block mb-2 text-sm font-medium text-gray-900">Total</label>
                             <div class="relative">
-                                <input type="text" name="total" id="total_pagar   "
+                                <input type="text" name="total" id="total_pagar" 
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"
                                     placeholder="0000,00 $" required>
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -143,19 +151,22 @@
                     <th scope="col" class="px-4 py-3">Cantidad</th>
                     <th scope="col" class="px-4 py-3">Precio Unitario</th>
                     <th scope="col" class="px-4 py-3">Total</th>
-                    <th scope="col" class="px-4 py-3">Status</th>
+                    <th scope="col" class="px-4 py-3">Empleado</th>
                     <th scope="col" class="px-4 py-3">Acciones</th>
                 </tr>
             </thead>
             <tbody>
+
+            @foreach($ordenesCompra as $ordenCompra)
                 <tr class="bg-white border-b">
-                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">02/07/2024</th>
-                    <td class="px-4 py-3 text-gray-900">Empresas polar</td>
-                    <td class="px-4 py-3 text-gray-900">Jabon</td>
-                    <td class="px-4 py-3 text-gray-900">5</td>
-                    <td class="px-4 py-3 text-gray-900">10</td>
-                    <td class="px-4 py-3 text-gray-900">50</td>
-                    <td class="px-4 py-3 text-gray-900">Recibido</td>
+                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{$ordenCompra->fecha_emision->format('d-m-Y') }}</th>
+                    <td class="px-4 py-3 text-gray-900">{{ $ordenCompra->proveedores ? $ordenCompra->proveedores->nombre_empresa : 'N/A' }}</td>
+                    <td class="px-4 py-3 text-gray-900">{{ $ordenCompra->suministros ? $ordenCompra->suministros->nombre_suministro : 'N/A' }}</td>
+                    <td class="px-4 py-3 text-gray-900">{{ $ordenCompra->cantidad_pedida }}</td>
+                    <td class="px-4 py-3 text-gray-900">{{ $ordenCompra->precio_unitario }}</td>
+                    <td class="px-4 py-3 text-gray-900">{{ number_format($ordenCompra->total_pagar, 2) }}</td>
+                    <td class="px-4 py-3 text-gray-900">{{ $ordenCompra->empleado->nombre_empleado }} {{ $ordenCompra->empleado->apellido_empleado }}</td>
+                    </td>
                     <td class="px-4 py-3">
                         <div class="flex items-center space-x-2">
                             <!-- Botón Cancelar -->
@@ -169,15 +180,15 @@
                             </button>
                         </div>
                     </td>
-                </tr>
-                <tr class="bg-white border-b">
+            @endforeach
+                    <tr class="bg-white border-b">
                     <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">04/07/2024</th>
                     <td class="px-4 py-3 text-gray-900">Alimentos del Campo</td>
                     <td class="px-4 py-3 text-gray-900">Tomate</td>
                     <td class="px-4 py-3 text-gray-900">10</td>
                     <td class="px-4 py-3 text-gray-900">2</td>
                     <td class="px-4 py-3 text-gray-900">20</td>
-                    <td class="px-4 py-3 text-gray-900">Recibido</td>
+                    <td class="px-4 py-3 text-gray-900">Juan Pernia</td>
                     <td class="px-4 py-3">
                         <div class="flex items-center space-x-2">
                             <!-- Botón Cancelar -->
