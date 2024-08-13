@@ -61,7 +61,7 @@
                             <label for="telefono_proveedor"
                                 class="block mb-2 text-sm font-medium text-gray-900">Teléfono Proveedor</label>
                             <div class="relative">
-                                <input type="text" name="telefono" id="telefono_proveedor"
+                                <input type="text" name="telefono_proveedor" id="telefono_proveedor"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"
                                     placeholder="0412-000000" required>
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -136,15 +136,7 @@
                 </thead>
                 <tbody>
 
-                @foreach($proveedores as $proveedor)
-                <tr class="bg-white border-b">
-                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap"> {{ $proveedor->nombre_empresa }}</th>
-                <td class="px-4 py-3 text-gray-900">{{ $proveedor->telefono_proveedor }}</td>
-                <td class="px-4 py-3 text-gray-900">{{ $proveedor->direccion_empresa }}</td>
-                <td class="px-4 py-3 text-gray-900">{{ $proveedor->correo_proveedor }}</td>
-                <td class="px-4 py-3 text-gray-900">{{ $proveedor->rif }}</td>
-                <td class="px-4 py-3 text-gray-900">{{ $proveedor->nombre_categoria}}</td>
-                <td class="px-4 py-3">
+                
                             <div class="flex items-center space-x-2">
                                 <!-- Botón Editar -->
                                 <button class="flex items-center text-blue-600 hover:underline mr-4">
@@ -170,7 +162,7 @@
                             </div>
                         </td>
                     </tr>
-                    @endforeach
+                
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">Alimentos del
                             Campo</th>
