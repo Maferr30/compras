@@ -15,8 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $idOrden_compra
  * @property Carbon $fecha_emision
  * @property Carbon $fecha_entraga
- * @property string $status
- * @property float $subtotal_pagar
  * @property float $total_pagar
  * @property int $cantidad_pedida
  * @property float $precio_unitario
@@ -35,7 +33,6 @@ class OrdenesCompra extends Model
 	protected $casts = [
 		'fecha_emision' => 'datetime',
 		'fecha_entraga' => 'datetime',
-		'subtotal_pagar' => 'float',
 		'total_pagar' => 'float',
 		'cantidad_pedida' => 'int',
 		'precio_unitario' => 'float',
@@ -47,8 +44,6 @@ class OrdenesCompra extends Model
 	protected $fillable = [
 		'fecha_emision',
 		'fecha_entraga',
-		'status',
-		'subtotal_pagar',
 		'total_pagar',
 		'cantidad_pedida',
 		'precio_unitario',
