@@ -8,6 +8,9 @@ use App\Http\Controllers\OrdenCompraController;
 Route::get('/', [proveedorController::class, 'create'])->name('proveedor');
 Route::get('/proveedor', [proveedorController::class, 'create'])->name('proveedor.create');
 Route::post('/proveedor', [proveedorController::class, 'store'])->name('proveedor.store');
+Route::get('/proveedor/{proveedor}/edit', [proveedorController::class, 'edit'])->name('proveedor.edit');
+Route::put('/proveedor/{id}', [proveedorController::class, 'update'])->name('proveedor.update');
+Route::delete('/proveedor/{id}', [proveedorController::class, 'delete'])->name('proveedor.delete');
 
 
 // Ruta ordencompra
