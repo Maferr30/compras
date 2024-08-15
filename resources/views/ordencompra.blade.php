@@ -6,15 +6,13 @@
         <h2 class="mb-4 text-3xl font-semibold text-gray-900">Orden de Compra</h2>
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
 
-        @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+<!-- Mensaje de éxito -->
+@if (session('success'))
+    <div class="alert alert-success text-teal-800 text-center my-4">
+        {{ session('success') }}
     </div>
-    @endif
+@endif
+
             <form action="{{ route('ordencompra.store') }}" method="POST">
             @csrf
                 <div class="grid gap-4 px-18  sm:grid-cols-2 sm:gap-6">
@@ -27,6 +25,9 @@
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full  p-2.5 hover:border-rose-300"
                                     required>
                             </div>
+                            @error('fecha_emision')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="w-full">
@@ -38,6 +39,9 @@
                                     required>
                             </div>
                         </div>
+                        @error('fecha_entraga')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                     </div>
 
                     <div class="sm:col-span-2 flex space-x-4">
@@ -86,16 +90,20 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <input type="number" name="cantidad" id="cantidad_pedida"
+                                <input type="number" name="cantidad_pedida" id="cantidad_pedida"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"
                                     required>
                             </div>
+                            @error('cantidad_pedida')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
+
                         <div class="w-full">
                             <label for="precio_unitario" class="block mb-2 text-sm font-medium text-gray-900">Precio
                                 Unitario</label>
                             <div class="relative">
-                                <input type="text" name="precio unitario" id="precio_unitario   "
+                                <input type="text" name="precio_unitario" id="precio_unitario   "
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"
                                     placeholder="0000,00 $" required>
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -110,11 +118,15 @@
                                     </svg>
                                 </div>
                             </div>
+                            @error('precio_unitario')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
+
                         <div class="w-full">
                             <label for="total" class="block mb-2 text-sm font-medium text-gray-900">Total</label>
                             <div class="relative">
-                                <input type="text" name="total" id="total_pagar" 
+                                <input type="text" name="total_pagar" id="total_pagar" 
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"
                                     placeholder="0000,00 $" required>
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -126,6 +138,9 @@
                                     </svg>
                                 </div>
                             </div>
+                            @error('total_pagar')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="flex justify-center mt-4 sm:mt-6">
                             <button type="submit"
@@ -161,7 +176,7 @@
                 <tr class="bg-white border-b">
                     <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{$ordenCompra->fecha_emision->format('d-m-Y') }}</th>
                     <td class="px-4 py-3 text-gray-900">{{ $ordenCompra->proveedores ? $ordenCompra->proveedores->nombre_empresa : 'N/A' }}</td>
-                    <td class="px-4 py-3 text-gray-900">{{ $ordenCompra->suministros ? $ordenCompra->suministros->nombre_suministro : 'N/A' }}</td>
+                    <td class="px-4 py-3 text-gray-900">{{ $ordenCompra->suministro->nombre_suministro }}</td>
                     <td class="px-4 py-3 text-gray-900">{{ $ordenCompra->cantidad_pedida }}</td>
                     <td class="px-4 py-3 text-gray-900">{{ $ordenCompra->precio_unitario }}</td>
                     <td class="px-4 py-3 text-gray-900">{{ number_format($ordenCompra->total_pagar, 2) }}</td>
@@ -170,6 +185,10 @@
                     <td class="px-4 py-3">
                         <div class="flex items-center space-x-2">
                             <!-- Botón Cancelar -->
+                            @if($ordenCompra->esCancelable())
+                        <form action="{{ route('ordencompra.cancel', $ordenCompra->idOrden_compra) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('PATCH')
                             <button class="flex items-center text-blue-600 hover:underline mr-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700"
                                     viewBox="0 0 20 20" fill="currentColor">
@@ -178,31 +197,11 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </button>
+                        </form>
+                            @endif
                         </div>
                     </td>
             @endforeach
-                    <tr class="bg-white border-b">
-                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">04/07/2024</th>
-                    <td class="px-4 py-3 text-gray-900">Alimentos del Campo</td>
-                    <td class="px-4 py-3 text-gray-900">Tomate</td>
-                    <td class="px-4 py-3 text-gray-900">10</td>
-                    <td class="px-4 py-3 text-gray-900">2</td>
-                    <td class="px-4 py-3 text-gray-900">20</td>
-                    <td class="px-4 py-3 text-gray-900">Juan Pernia</td>
-                    <td class="px-4 py-3">
-                        <div class="flex items-center space-x-2">
-                            <!-- Botón Cancelar -->
-                            <button class="flex items-center text-blue-600 hover:underline mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </div>

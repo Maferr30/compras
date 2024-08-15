@@ -22,6 +22,7 @@ Route::get('/ordencompra', function () {
 Route::get('ordencompra', [OrdenCompraController::class, 'create'])->name('ordencompra');
 Route::post('ordencompra', [OrdenCompraController::class, 'store'])->name('ordencompra.store');
 Route::get('/ordencompra/create', [OrdenCompraController::class, 'create'])->name('ordencompra.create');
+Route::patch('/ordencompra/{id}/cancel', [OrdenCompraController::class, 'cancel'])->name('ordencompra.cancel');
 
 // Ruta recepcion
 Route::get('/recepcion', function () {

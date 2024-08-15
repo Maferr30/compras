@@ -63,4 +63,10 @@ class OrdenesCompra extends Model
     {
         return $this->belongsTo(Suministro::class, 'Suministros_idSuministro');
     }
+	public function esCancelable()
+    {
+        if (!$this->enviado_at) {
+        }
+        return $this->belongsTo(OrdenesCompra::class, 'idOrden_compra');
+    }
 }

@@ -34,14 +34,15 @@ class Proveedore extends Model
 		'correo_proveedor',
 		'rif'
 	];
-    public function categorias()   
-    {
-        return $this->belongsToMany(Categoria::class, 'proveedores_has_categorias', 'Proveedores_idProveedores', 'categorias_idcategorias');
-    }
-	public function suministros()
+	public function ordenes_compras()
 	{
-		return $this->belongsToMany(Suministro::class, 'proveedores_has_suministro', 'Proveedores_idProveedores', 'Suministro_idSuministro')
-					->withPivot('idProveedores_has_Suministro');
+		return $this->hasMany(OrdenesCompra::class, 'Proveedores_idProveedores');
 	}
+	public function categorias()
+	{
+		return $this->belongsToMany(Categoria::class, 'proveedores_has_categorias', 'Proveedores_idProveedores', 'categorias_idcategorias')
+					->withPivot('idProveedores_has_categoriascol');
+	}
+
 
 }

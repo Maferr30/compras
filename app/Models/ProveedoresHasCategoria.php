@@ -32,4 +32,13 @@ class ProveedoresHasCategoria extends Model
 		'Proveedores_idProveedores',
 		'categorias_idcategorias'
 	];
+	public function proveedore()
+	{
+		return $this->belongsTo(Proveedore::class, 'Proveedores_idProveedores');
+	}
+
+	public function categoria()
+	{
+		return $this->belongsTo(Categoria::class, 'categorias_idcategorias');
+	}
 }

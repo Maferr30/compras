@@ -8,7 +8,7 @@ use App\Models\ProveedoresHasCategoria;
 use Illuminate\Http\Request;
 
 
-class ProveedorController extends Controller
+class proveedorController extends Controller
 {
     public function create()
     {

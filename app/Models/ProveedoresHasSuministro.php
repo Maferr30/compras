@@ -32,4 +32,13 @@ class ProveedoresHasSuministro extends Model
 		'Proveedores_idProveedores',
 		'Suministro_idSuministro'
 	];
+	public function proveedore()
+	{
+		return $this->belongsTo(Proveedore::class, 'Proveedores_idProveedores');
+	}
+
+	public function suministro()
+	{
+		return $this->belongsTo(Suministro::class, 'Suministro_idSuministro');
+	}
 }
