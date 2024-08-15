@@ -4,8 +4,21 @@
 <section class="bg-white ">
     <div class="py-8 px-16 max-w-4x4">
         <h2 class="mb-4 text-3xl font-semibold text-gray-900">Devoluciones</h2>
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('danger'))
+        <div class="alert alert-danger">
+            {{ session('danger') }}
+        </div>
+    @endif
+
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
-            <form action="#">
+            <form action="{{route('devolucion.create')}}" method="post">
+                @csrf
                 <div class="grid gap-4 px-18  sm:grid-cols-2 sm:gap-6">
                     <div class="sm:col-span-2 flex space-x-4">
                     <div class="w-full">
@@ -18,11 +31,12 @@
 
                         <div class="w-full">
                             <label for="idRecepcion_mercancia" class="block mb-2 text-sm font-medium text-gray-900">Nº Recepcion Mercancia</label>
-                            <select id="Recepciones_mercancias_idRecepcion_mercancia"
+                            <select id="Recepciones_mercancias_idRecepcion_mercancia" name="recepcion"
                             class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
                             <option selected>Recepcion Mercancia</option>
-                            <option value="01">01</option>
-                            <option value="02">02</option>
+                            @foreach ( $rec as $item )
+                            <option value="{{$item->idRecepcion_mercancia}}">{{$item->idRecepcion_mercancia}}</option>
+                            @endforeach
                         </select>
                         </div>
                     </div>
@@ -30,19 +44,18 @@
                     <div class="sm:col-span-2 flex space-x-4">
                     <div class="w-full">
                             <label for="suministro" class="block mb-2 text-sm font-medium text-gray-900">Suministro</label>
-                            <select id="Suministros_idSuministro"
+                            <select id="Suministros_idSuministro" name="suministro"
                             class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
                             <option selected>Seleccione Suministro</option>
-                            <option value="Jabon">Jabón</option>
-                            <option value="Tenedor">Tenedor</option>
-                            <option value="Tomate">Tomate</option>
-                            <option value="Plato">Plato</option>
-                        </select>
+                            @foreach ($sum as $item )
+                                <option value="{{$item->idSuministro}}">{{$item->nombre_suministro}}</option>
+                            @endforeach
+                            </select>
                         </div>
                         
                         <div class="w-full">
                             <label for="estado" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
-                            <select id="status"
+                            <select id="status" name="status"
                             class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
                             <option selected>Estado</option>
                             <option value="Defectuoso">Defectuoso</option>
@@ -81,11 +94,12 @@
 
                     <div>
                         <label for="empleado" class="block mb-2 text-sm font-medium text-gray-900">Empleado</label>
-                        <select id="Emplados_idEmplados"
+                        <select id="Emplados_idEmplados" name="empleado"
                             class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
                             <option selected>Seleccione Empleado</option>
-                            <option value="maria">Maria Fernanda</option>
-                            <option value="juan">Juan Pernia</option>
+                            @foreach ( $emp as $item )
+                                <option value="{{$item->idEmpleados}}">{{$item->nombre_empleado}} {{$item->apellido_empleado}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -103,8 +117,8 @@
         <div class="relative shadow-md rounded-lg overflow-hidden">
             <table class="min-w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+                   
                     <tr>
-                        <th scope="col" class="px-4 py-3">Nº Devolucion</th>
                         <th scope="col" class="px-4 py-3">Fecha de Devolucion</th>
                         <th scope="col" class="px-4 py-3">Nº Recepcion</th>
                         <th scope="col" class="px-4 py-3">Suministro</th>
@@ -114,17 +128,19 @@
                         <th scope="col" class="px-4 py-3">Empleado</th>
                         <th scope="col" class="px-4 py-3">Acciones</th>
                     </tr>
+                   
+                    
                 </thead>
                 <tbody>
+                    @foreach ( $devo as $item )
                     <tr class="bg-white border-b">
-                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">01</th>
-                        <td class="px-4 py-3 text-gray-900">04/07/2024</td>
-                        <td class="px-4 py-3 text-gray-900">02</td>
-                        <td class="px-4 py-3 text-gray-900">Tomate</td>
-                        <td class="px-4 py-3 text-gray-900">Error en el pedido</td>
-                        <td class="px-4 py-3 text-gray-900">8</td>
-                        <td class="px-4 py-3 text-gray-900">Pedido Incompleto</td>
-                        <td class="px-4 py-3 text-gray-900">Juan Pernia</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->fecha_devolucion}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->idRecepcion_mercancia}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->nombre_suministro}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->status}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->cantidad_devuelta}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->motivo}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->nombre_empleado}} {{$item->apellido_empleado}}</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-2">
                                 <!-- Botón Cancelar -->
@@ -137,27 +153,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr class="bg-white border-b">
-                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">02</th>
-                        <td class="px-4 py-3 text-gray-900">07/07/2024</td>
-                        <td class="px-4 py-3 text-gray-900">03</td>
-                        <td class="px-4 py-3 text-gray-900">Galletas</td>
-                        <td class="px-4 py-3 text-gray-900">Dañado</td>
-                        <td class="px-4 py-3 text-gray-900">5</td>
-                        <td class="px-4 py-3 text-gray-900">Galletas dañadas</td>
-                        <td class="px-4 py-3 text-gray-900">Maria Fernanda</td>
-                        <td class="px-4 py-3">
-                            <div class="flex items-center space-x-2">
-                                <!-- Botón Cancelar -->
-                                <button class="flex items-center text-blue-600 hover:underline mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700" 
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"></path>
-                                </svg>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
