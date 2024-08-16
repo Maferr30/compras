@@ -26,28 +26,30 @@ class OrdenCompraController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-           'fecha_entraga' => 'required|date|after_or_equal:today',
-           'Empleados_idEmpleados' => 'required|exists:empleados,idEmpleados',
-           'Proveedores_idProveedores' => 'required|exists:proveedores,idProveedores',
-           'Suministros_idSuministro' => 'required|array',
-           'cantidad_pedida' => 'required|array',
-           'precio_unitario' => 'required|array',
-           'total_pagar' => 'required|array',
-       ], [
-           'fecha_entraga.after_or_equal' => 'La fecha de entrega no puede ser antes de la fecha actual',
-           'fecha_entraga.required' => 'La fecha de entrega es obligatoria.',
-           'fecha_entraga.date' => 'La fecha de entrega debe ser una fecha válida.',
-           'Empleados_idEmpleados.required' => 'El empleado es obligatorio.',
-           'Empleados_idEmpleados.exists' => 'El empleado seleccionado no existe.',
-           'Proveedores_idProveedores.required' => 'El proveedor es obligatorio.',
-           'Proveedores_idProveedores.exists' => 'El proveedor seleccionado no existe.',
-           'Suministros_idSuministro.required' => 'Los suministros son obligatorios.',
-           'cantidad_pedida.required' => 'Las cantidades son obligatorias.',
-           'cantidad_pedida.min' => 'La cantidad pedida debe ser un valor positivo.',
-           'precio_unitario.required' => 'El precio es obligatorio.',
-           'total_pagar.required' => 'El total es obligatorio.',
-       ]);
+         $request->validate([
+            'fecha_emision' =>'required|date|after_or_equal:today',
+            'fecha_entraga' => 'required|date|after_or_equal:today',
+            'Empleados_idEmpleados' => 'required|exists:empleados,idEmpleados',
+            'Suministros_idSuministro' => 'required|exists:suministros,idSuministro',
+            'Proveedores_idProveedores' => 'required|exists:proveedores,idProveedores',
+            'cantidad_pedida' => 'required|numeric|min:1',
+            'cantidad_total' => 'required|numeric|min:1',
+       
+        ], [
+            'fecha_emision.after_or_equal' => 'La fecha de emision no puede ser antes de la fecha actual',
+            'fecha_emision.required' => 'La fecha de emision es obligatoria.',
+            'fecha_entraga.required' => 'La fecha de entrega es obligatoria.',
+            'fecha_entraga.after_or_equal' => 'La fecha de entrega no puede ser antes de la fecha actual',
+            'Empleados_idEmpleados.required' => 'El empleado es obligatorio.',
+            'Empleados_idEmpleados.exists' => 'El empleado seleccionado no existe.',
+            'Proveedores_idProveedores.required' => 'El proveedor es obligatorio.',
+            'Proveedores_idProveedores.exists' => 'El proveedor seleccionado no existe.',
+            'Suministros_idSuministro.required' => 'Los suministros son obligatorios.',
+            'cantidad_pedida.min' => 'La cantidad debe ser un valor positivo.',
+            'cantidad_pedida.required' => 'El cantidad es obligatoria.',
+            'cantidad_total.required' => 'La cantidad total es obligatoria.',
+
+        ]);
 
         $ordenCompra = new OrdenesCompra();
         $ordenCompra->fecha_emision = $request->input('fecha_emision');
@@ -56,11 +58,8 @@ class OrdenCompraController extends Controller
         $ordenCompra->Suministros_idSuministro = $request->input('Suministros_idSuministro');
         $ordenCompra->Proveedores_idProveedores = $request->input('Proveedores_idProveedores');
         $ordenCompra->cantidad_pedida = $request->input('cantidad_pedida');
-        $ordenCompra->precio_unitario = $request->input('precio_unitario');
-        $ordenCompra->total_pagar = $request->input('total_pagar');
+        $ordenCompra->cantidad_total = $request->input('cantidad_total');
         $ordenCompra->save();
-
-        $ordenCompra->enviado_at = now();
 
         return redirect()->route('ordencompra.create')->with('success', 'La Orden de compra ha sido creada exitosamente.');
     }
@@ -77,15 +76,71 @@ class OrdenCompraController extends Controller
         return response()->json($suminis);
     }
 
-    public function cancel($id)
+    public function delete($id)
     {
-        $ordenCompra = OrdenesCompra::findOrFail($id);
-        if (!$ordenCompra->esCancelable()) {
-        return redirect()->route('ordencompra')->with('error', 'Esta orden ya no puede ser cancelada.');
+        $ordenCompra = OrdenesCompra::find($id);
+    
+        if ($ordenCompra) {
+            // Simplemente elimina la orden de compra
+            $ordenCompra->delete();
+    
+            return back()->with('success', 'Orden de compra eliminada con éxito');
+        } else {
+            return back()->with('error', 'Orden de compra no encontrada');
+        }
     }
+    
+    public function edit($id)
+    {
+        $ordenCompra = OrdenesCompra::find($id);
+        if (!$ordenCompra) {
+            return redirect()->route('ordencompra.create')->with('error', 'Orden de compra no encontrada.');
+        }
+    
+        $empleados = Empleado::all();
+        $suminis = Suministro::all();
+        $pro = Proveedore::all();
+        return view('ordencompraedit', compact('empleados', 'suminis', 'pro', 'ordenCompra'));
+    }
+    
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'fecha_emision' =>'required|date|after_or_equal:today',
+        'fecha_entraga' => 'required|date|after_or_equal:today',
+        'Empleados_idEmpleados' => 'required|exists:empleados,idEmpleados',
+        'Suministros_idSuministro' => 'required|exists:suministros,idSuministro',
+        'Proveedores_idProveedores' => 'required|exists:proveedores,idProveedores',
+        'cantidad_pedida' => 'required|numeric|min:1',
+        'cantidad_total' => 'required|numeric|min:1',
+   
+    ], [
+        'fecha_emision.after_or_equal' => 'La fecha de emision no puede ser antes de la fecha actual',
+        'fecha_emision.required' => 'La fecha de emision es obligatoria.',
+        'fecha_entraga.required' => 'La fecha de entrega es obligatoria.',
+        'fecha_entraga.after_or_equal' => 'La fecha de entrega no puede ser antes de la fecha actual',
+        'Empleados_idEmpleados.required' => 'El empleado es obligatorio.',
+        'Empleados_idEmpleados.exists' => 'El empleado seleccionado no existe.',
+        'Proveedores_idProveedores.required' => 'El proveedor es obligatorio.',
+        'Proveedores_idProveedores.exists' => 'El proveedor seleccionado no existe.',
+        'Suministros_idSuministro.required' => 'Los suministros son obligatorios.',
+        'cantidad_pedida.min' => 'La cantidad debe ser un valor positivo.',
+        'cantidad_pedida.required' => 'El cantidad es obligatoria.',
+        'cantidad_total.required' => 'La cantidad total es obligatoria.',
+
+    ]);
+
+    $ordenCompra = OrdenesCompra::findOrFail($id);
+
+    $ordenCompra->fecha_emision = $request->input('fecha_emision');
+    $ordenCompra->fecha_entraga = Carbon::now();
+    $ordenCompra->Empleados_idEmpleados = $request->input('Empleados_idEmpleados');
+    $ordenCompra->Suministros_idSuministro = $request->input('Suministros_idSuministro');
+    $ordenCompra->Proveedores_idProveedores = $request->input('Proveedores_idProveedores');
+    $ordenCompra->cantidad_pedida = $request->input('cantidad_pedida');
+    $ordenCompra->cantidad_total = $request->input('cantidad_total');
     $ordenCompra->save();
 
-    return redirect()->route('ordencompra')->with('success', 'Orden de compra cancelada exitosamente');
+    return redirect()->route('ordencompra.create')->with('success', 'La Orden de compra ha sido actualizada correctamente');
 }
-
 }

@@ -41,8 +41,6 @@ class Proveedore extends Model
 	public function categorias()
 	{
 		return $this->belongsToMany(Categoria::class, 'proveedores_has_categorias', 'Proveedores_idProveedores', 'categorias_idcategorias')
-					->withPivot('idProveedores_has_categoriascol');
+					->withPivot('idProveedores_has_categorias');
 	}
-
-
 }

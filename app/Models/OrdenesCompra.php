@@ -15,9 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $idOrden_compra
  * @property Carbon $fecha_emision
  * @property Carbon $fecha_entraga
- * @property float $total_pagar
  * @property int $cantidad_pedida
- * @property float $precio_unitario
+ * @property int $cantidad_total
  * @property int $Empleados_idEmpleados
  * @property int $Proveedores_idProveedores
  * @property int $Suministros_idSuministro
@@ -33,9 +32,8 @@ class OrdenesCompra extends Model
 	protected $casts = [
 		'fecha_emision' => 'datetime',
 		'fecha_entraga' => 'datetime',
-		'total_pagar' => 'float',
 		'cantidad_pedida' => 'int',
-		'precio_unitario' => 'float',
+		'cantidad_total' => 'int',
 		'Empleados_idEmpleados' => 'int',
 		'Proveedores_idProveedores' => 'int',
 		'Suministros_idSuministro' => 'int'
@@ -44,9 +42,8 @@ class OrdenesCompra extends Model
 	protected $fillable = [
 		'fecha_emision',
 		'fecha_entraga',
-		'total_pagar',
 		'cantidad_pedida',
-		'precio_unitario',
+		'cantidad_total',
 		'Empleados_idEmpleados',
 		'Proveedores_idProveedores',
 		'Suministros_idSuministro'
@@ -62,11 +59,5 @@ class OrdenesCompra extends Model
 	public function suministro()
     {
         return $this->belongsTo(Suministro::class, 'Suministros_idSuministro');
-    }
-	public function esCancelable()
-    {
-        if (!$this->enviado_at) {
-        }
-        return $this->belongsTo(OrdenesCompra::class, 'idOrden_compra');
     }
 }
