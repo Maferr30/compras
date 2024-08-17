@@ -122,7 +122,7 @@
                         <td class="px-4 py-3 text-gray-900">{{$item->status}}</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-2">
-                                <!-- Botón Editar -->
+                                <!-- Botón Editar interfaz -->
                                 <button class="flex items-center text-blue-600 hover:underline mr-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700"
                                         viewBox="0 0 20 20" fill="currentColor">

@@ -25,7 +25,7 @@ WHERE 1;");
     public function create(Request $request)
     {
         try {
-            // Inserción en la tabla recepcion
+            // Inserción en la tabla recepcion de mercancia
             $recepcion = DB::table('recepciones_mercancias')->insertGetId([
                 'fecha_recepcion' => $request->input('fecha_recepcion'),
                 'status' => $request->input('status'),
