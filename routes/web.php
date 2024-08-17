@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\proveedorController;
 use App\Http\Controllers\OrdenCompraController;
+use App\Http\Controllers\RecepcionController;
 use App\Http\Controllers\DevolucionesController;
 
 // Ruta proveedor
@@ -30,6 +31,9 @@ Route::put('/ordencompra/{id}', [OrdenCompraController::class, 'update'])->name(
 Route::get('/recepcion', function () {
     return view('recepcion');
 })->name('recepcion');
+
+Route::get('/recepcion', [RecepcionController::class, 'index'])->name('recepcion');
+Route::post('/recepcion/create', [RecepcionController::class, 'create'])->name('recepcion.create');
 
 // Ruta devolucion
 Route::get('/devolucion', function () {
