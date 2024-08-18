@@ -37,6 +37,8 @@ Route::get('/recepcion', function () {
 
 Route::get('/recepcion', [RecepcionController::class, 'index'])->name('recepcion');
 Route::post('/recepcion/create', [RecepcionController::class, 'create'])->name('recepcion.create');
+Route::get('/recepcion/{recepcion}/edit', [RecepcionController::class, 'edit'])->name('recepcion.edit');
+Route::put('/recepcion/{id}', [RecepcionController::class, 'update'])->name('recepcion.update');
 
 // Ruta devolucion
 Route::get('/devolucion', function () {

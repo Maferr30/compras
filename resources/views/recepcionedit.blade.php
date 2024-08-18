@@ -3,17 +3,18 @@
 @section('content')
 <section class="bg-white ">
     <div class="py-8 px-16 max-w-4x4">
-        <h2 class="mb-4 text-3xl font-semibold text-gray-900">Recepcion Mercancia</h2>
+        <h2 class="mb-4 text-3xl font-semibold text-gray-900">Editar Recepcion</h2>
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
 
-        <!-- Mensaje de éxito -->
+         <!-- Mensaje de éxito -->
 @if (session('success'))
     <div class="alert alert-success text-teal-800 text-center my-4">
         {{ session('success') }}
     </div>
 @endif
-
-            <form action="{{route('recepcion.create')}}" method="POST">
+            <form action="" method="POST">
+            @csrf
+            @method('PUT')
                 @csrf
                 <div class="grid gap-4 px-18  sm:grid-cols-2 sm:gap-6">
                     <div class="sm:col-span-2 flex space-x-4">
@@ -121,55 +122,4 @@
                 </div>
             </form>
         </div>
-
-        <!-- Table Section -->
-        <h2 class="mb-4 text-3xl font-semibold text-gray-900">Lista Recepcion</h2>
-        <div class="relative shadow-md rounded-lg overflow-hidden">
-            <table class="min-w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-200">
-                    <tr>
-                        <th scope="col" class="px-4 py-3">Fecha Recepcion</th>
-                        <th scope="col" class="px-4 py-3">Nº Orden Compra</th>
-                        <th scope="col" class="px-4 py-3">Empleado</th>
-                        <th scope="col" class="px-4 py-3">Proveedor</th>
-                        <th scope="col" class="px-4 py-3">Suministro</th>
-                        <th scope="col" class="px-4 py-3">Cantidad</th>
-                        <th scope="col" class="px-4 py-3">Estado</th>
-                        <th scope="col" class="px-4 py-3">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($repc as $item)
-                    <tr class="bg-white border-b">
-                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{$item->fecha_recepcion}}</th>
-                        <td class="px-4 py-3 text-gray-900">{{$item->idOrden_compra}}</td>
-                        <td class="px-4 py-3 text-gray-900">{{$item->nombre_empleado}} {{$item->apellido_empleado}}</td>
-                        <td class="px-4 py-3 text-gray-900">{{$item->nombre_empresa}}</td>
-                        <td class="px-4 py-3 text-gray-900">{{$item->nombre_suministro}}</td>
-                        <td class="px-4 py-3 text-gray-900">{{$item->cantidad_recibida}}</td>
-                        <td class="px-4 py-3 text-gray-900">{{$item->status}}</td>
-                        <td class="px-4 py-3">
-                            <div class="flex items-center space-x-2">
-                                <!-- Botón Editar interfaz -->
-                                <a href="" class="flex items-center text-blue-600 hover:underline mr-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700"
-                                        viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                                        </path>
-                                        <path fill-rule="evenodd"
-                                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-</section>
 @endsection

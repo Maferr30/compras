@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\RecepcionesMercancia;
+use App\Models\Empleado;
+use App\Models\Proveedore;
+use App\Models\OrdenesCompra;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -41,4 +44,31 @@ WHERE 1;");
             return redirect()->back()->with('danger', 'Error en envío: ' . $th->getMessage());
         }
     }
+    public function edit($id)
+    {
+        $recepcion = RecepcionesMercancia::find($id);
+        if (!$recepcion) {
+            return redirect()->route('recepcion.create')->with('error', 'Recepcion no encontrada.');
+        }
+    
+        $ordenCompra = OrdenesCompra::all();
+        $empleado = Empleado::all();
+        $proveedor = Proveedore::all();
+        return view('recepcionedit', compact('recepcion', 'ordenCompra', 'empleado', 'proveedor'));
+    }    
+    public function update(Request $request, $id)
+    {
+        $recepcion = RecepcionesMercancia::findOrFail($id);
+    
+        $recepcion->fecha_recepcion = $request->input('fecha_recepcion');
+        $recepcion->status = $request->input('status');
+        $recepcion->cantidad_recibida = $request->input('cantidad');
+        $recepcion->Empleados_idEmpleados = $request->input('Empleados_idEmpleados');
+        $recepcion->Ordenes_compras_idOrden_compra = $request->input('idOrden_compra');
+    
+        $recepcion->save();
+    
+        return redirect()->route('recepcion.edit', $id)->with('success', 'La recepción ha sido actualizada correctamente.');
+    }
+    
 }

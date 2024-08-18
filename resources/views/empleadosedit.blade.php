@@ -3,7 +3,7 @@
 @section('content')
 <section class="bg-white ">
     <div class="py-8 px-16 max-w-4x4">
-        <h2 class="mb-4 text-3xl font-semibold text-gray-900">Editar Orden de Compra</h2>
+        <h2 class="mb-4 text-3xl font-semibold text-gray-900">Editar Empleados</h2>
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
 
         <form action="{{ route('empleados.update', $empleado->idEmpleados) }}" method="POST">
