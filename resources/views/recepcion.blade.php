@@ -5,7 +5,8 @@
     <div class="py-8 px-16 max-w-4x4">
         <h2 class="mb-4 text-3xl font-semibold text-gray-900">Recepcion Mercancia</h2>
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
-            <form action="#">
+            <form action="{{route('recepcion.create')}}" method="POST">
+                @csrf
                 <div class="grid gap-4 px-18  sm:grid-cols-2 sm:gap-6">
                     <div class="sm:col-span-2 flex space-x-4">
                     <div class="w-full">
@@ -20,9 +21,14 @@
                             <label for="idOrden_compra"
                                 class="block mb-2 text-sm font-medium text-gray-900">Nº Orden Compra</label>
                             <div class="relative">
-                                <input type="number" name="idOrden_compra" id="Ordenes_compras_idOrden_compra"
+                                <select type="number" name="idOrden_compra" id="Ordenes_compras_idOrden_compra"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"required>
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                   <option selected>seleccione un número</option>
+                                   @foreach ( $orc as $item)
+                                       <option value="{{$item->idOrden_compra}}">{{$item->idOrden_compra}}</option>
+                                   @endforeach
+                                </select>
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h7a1 1 0 100-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z"></path>
                                 </svg>
@@ -34,11 +40,12 @@
                     <div class="sm:col-span-2 flex space-x-4">
                     <div class="w-full">
                             <label for="empleado" class="block mb-2 text-sm font-medium text-gray-900">Empleado</label>
-                            <select id="Empleados_idEmpleados"
+                            <select id="Empleados_idEmpleados" name="Empleados_idEmpleados"
                             class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
                             <option selected>Seleccione Empleado</option>
-                            <option value="maria">Mara Fernanda</option>
-                            <option value="juan">Juan Pernia</option>
+                            @foreach ($emp as $item)
+                                <option value="{{$item->idEmpleados}}">{{$item->nombre_empleado}} {{$item->apellido_empleado}}</option>
+                            @endforeach
                         </select>
                         </div>
                         
@@ -47,20 +54,9 @@
                             <select id="Proveedores_idProveedores"
                             class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
                             <option selected>Seleccione Proveedor</option>
-                            <option value="polar">Empresas Polar</option>
-                            <option value="del campo">Alimentos del Campo</option>
-                        </select>
-                        </div>
-
-                        <div class="w-full">
-                            <label for="suministro" class="block mb-2 text-sm font-medium text-gray-900">Suministro</label>
-                            <select id="Suministros_idSuministro"
-                            class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
-                            <option selected>Seleccione Suministro</option>
-                            <option value="Jabon">Jabón</option>
-                            <option value="Tenedor">Tenedor</option>
-                            <option value="Tomate">Tomate</option>
-                            <option value="Plato">Plato</option>
+                            @foreach ($pro as $item )
+                                <option value="{{$item->idProveedores}}">{{$item->nombre_empresa}}</option>
+                            @endforeach
                         </select>
                         </div>
                     </div>
@@ -79,8 +75,8 @@
                             </div>
                         </div>
                     <div>
-                        <label for="status	" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
-                        <select id="status	"
+                        <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
+                        <select id="status" name="status"
                             class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300">
                             <option selected>Seleccione Estado</option>
                             <option value="Buen estado">Buen estado</option>
@@ -115,17 +111,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($repc as $item)
                     <tr class="bg-white border-b">
-                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">05/07/2024</th>
-                        <td class="px-4 py-3 text-gray-900">01</td>
-                        <td class="px-4 py-3 text-gray-900">Juan Pernia</td>
-                        <td class="px-4 py-3 text-gray-900">Empresas Polar</td>
-                        <td class="px-4 py-3 text-gray-900">Jabon</td>
-                        <td class="px-4 py-3 text-gray-900">5</td>
-                        <td class="px-4 py-3 text-gray-900">Buen estado</td>
+                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{$item->fecha_recepcion}}</th>
+                        <td class="px-4 py-3 text-gray-900">{{$item->idOrden_compra}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->nombre_empleado}} {{$item->apellido_empleado}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->nombre_empresa}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->nombre_suministro}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->cantidad_recibida}}</td>
+                        <td class="px-4 py-3 text-gray-900">{{$item->status}}</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-2">
+<<<<<<< HEAD
                                 <!-- Botón Editar -->
+=======
+                                <!-- Botón Editar interfaz -->
+>>>>>>> 018424357dc9fb7a19b2cad5bd1612621b59507a
                                 <button class="flex items-center text-blue-600 hover:underline mr-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700"
                                         viewBox="0 0 20 20" fill="currentColor">
@@ -140,6 +141,10 @@
                             </div>
                         </td>
                     </tr>
+<<<<<<< HEAD
+=======
+                    @endforeach
+>>>>>>> 018424357dc9fb7a19b2cad5bd1612621b59507a
                 </tbody>
             </table>
         </div>
