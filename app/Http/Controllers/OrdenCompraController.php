@@ -9,9 +9,12 @@ use App\Models\ProveedoresHasSuministro;
 use App\Models\Proveedore;
 use App\Models\Suministro;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class OrdenCompraController extends Controller
 {   
+
     public function create()
     {
 
@@ -20,10 +23,15 @@ class OrdenCompraController extends Controller
     $pro = Proveedore::all();
     $suminis = Suministro::all();
     return view('ordencompra', compact('empleados', 'suminis', 'pro', 'ordenesCompra'));
-
-    
     }
 
+    public function pdf(){
+
+        $ordenesCompra = OrdenesCompra::all();
+        $pdf = Pdf::loadView('ordencompra.pdf', compact('ordenesCompra'));
+        return $pdf->stream('ordencompra.pdf');
+    }
+    
     public function store(Request $request)
     {
          $request->validate([

@@ -19,8 +19,7 @@
                     <div class="sm:col-span-2 flex space-x-4">
                         
                         <div class="w-full">
-                            <label for="nombre_empresa" class="block mb-2 text-sm font-medium text-gray-900">Nombre
-                                Empresa</label>
+                            <label for="nombre_empresa" class="block mb-2 text-sm font-medium text-gray-900">Razón Social</label>
                             <div class="relative">
                                 <input type="text" name="nombre_empresa" id="nombre_empresa"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"
