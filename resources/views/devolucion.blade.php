@@ -4,17 +4,13 @@
 <section class="bg-white ">
     <div class="py-8 px-16 max-w-4x4">
         <h2 class="mb-4 text-3xl font-semibold text-gray-900">Devoluciones</h2>
-        @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('danger'))
-        <div class="alert alert-danger">
-            {{ session('danger') }}
-        </div>
-    @endif
+ 
+<!-- Mensaje de éxito -->
+@if (session('success'))
+    <div class="alert alert-success text-teal-800 text-center my-4">
+        {{ session('success') }}
+    </div>
+@endif
 
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
             <form action="{{route('devolucion.create')}}" method="post">
@@ -27,6 +23,9 @@
                                 <input type="date" name="fecha_devolucion" id="fecha_devolucion"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"required>
                             </div>
+                            @error('fecha_devolucion')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="w-full">
@@ -38,6 +37,9 @@
                             <option value="{{$item->idRecepcion_mercancia}}">{{$item->idRecepcion_mercancia}}</option>
                             @endforeach
                         </select>
+                        @error('recepcion')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
@@ -51,6 +53,9 @@
                                 <option value="{{$item->idSuministro}}">{{$item->nombre_suministro}}</option>
                             @endforeach
                             </select>
+                            @error('suministro')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         
                         <div class="w-full">
@@ -62,6 +67,9 @@
                             <option value="Dañado">Dañado</option>
                             <option value="Error en el pedido">Error en el pedido</option>
                         </select>
+                        @error('status')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="w-full">
@@ -75,6 +83,9 @@
                          <input type="number" name="cantidad_devuelta" id="cantidad_devuelta"
                          class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300" required>
                   </div>
+                @error('cantidad_devuelta')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
                 </div>
                 </div>
 
@@ -90,6 +101,9 @@
                                 <input type="text" name="motivo" id="motivo"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300" required>
                             </div>
+                            @error('motivo')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
 
                     <div>
@@ -101,6 +115,9 @@
                                 <option value="{{$item->idEmpleados}}">{{$item->nombre_empleado}} {{$item->apellido_empleado}}</option>
                             @endforeach
                         </select>
+                        @error('empleado')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                     </div>
                 </div>
                 <div class="flex justify-center mt-4 sm:mt-6">

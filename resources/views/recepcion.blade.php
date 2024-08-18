@@ -5,6 +5,14 @@
     <div class="py-8 px-16 max-w-4x4">
         <h2 class="mb-4 text-3xl font-semibold text-gray-900">Recepcion Mercancia</h2>
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
+
+        <!-- Mensaje de éxito -->
+@if (session('success'))
+    <div class="alert alert-success text-teal-800 text-center my-4">
+        {{ session('success') }}
+    </div>
+@endif
+
             <form action="{{route('recepcion.create')}}" method="POST">
                 @csrf
                 <div class="grid gap-4 px-18  sm:grid-cols-2 sm:gap-6">
@@ -15,6 +23,9 @@
                                 <input type="date" name="fecha_recepcion" id="fecha_recepcion"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"required>
                             </div>
+                            @error('fecha_recepcion')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="w-full">
@@ -35,6 +46,9 @@
                                 </div>
                             </div>
                         </div>
+                        @error('idOrden_compra')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                     </div>
 
                     <div class="sm:col-span-2 flex space-x-4">
@@ -47,6 +61,9 @@
                                 <option value="{{$item->idEmpleados}}">{{$item->nombre_empleado}} {{$item->apellido_empleado}}</option>
                             @endforeach
                         </select>
+                        @error('Empleados_idEmpleados')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                         </div>
                         
                         <div class="w-full">
@@ -59,6 +76,9 @@
                             @endforeach
                         </select>
                         </div>
+                        @error('Proveedores_idProveedores')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
 
                         <div class="w-full">
@@ -73,7 +93,11 @@
                                 <input type="number" name="cantidad" id="cantidad_recibida"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300" required>
                             </div>
+                            @error('cantidad')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
+
                     <div>
                         <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
                         <select id="status" name="status"
@@ -84,7 +108,11 @@
                             <option value="Deteriorado">Deteriorado</option>
                         </select>
                     </div>
+                    @error('status')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                 </div>
+
                 <div class="flex justify-center mt-4 sm:mt-6">
                     <button type="submit"
                         class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-rose-400 border-2 border-rose-300 rounded-lg focus:ring-4 focus:ring-purple-300 hover:bg-rose-300 transition-colors duration-200">
@@ -122,11 +150,7 @@
                         <td class="px-4 py-3 text-gray-900">{{$item->status}}</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-2">
-<<<<<<< HEAD
-                                <!-- Botón Editar -->
-=======
                                 <!-- Botón Editar interfaz -->
->>>>>>> 018424357dc9fb7a19b2cad5bd1612621b59507a
                                 <button class="flex items-center text-blue-600 hover:underline mr-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700"
                                         viewBox="0 0 20 20" fill="currentColor">
@@ -141,10 +165,7 @@
                             </div>
                         </td>
                     </tr>
-<<<<<<< HEAD
-=======
                     @endforeach
->>>>>>> 018424357dc9fb7a19b2cad5bd1612621b59507a
                 </tbody>
             </table>
         </div>
