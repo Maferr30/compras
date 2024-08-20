@@ -7,15 +7,17 @@
         <div class="bg-gray-300 p-6 rounded-lg shadow-md mb-4">
            
         <!-- Mensaje de éxito -->
-@if (session('success'))
-    <div class="alert alert-success text-teal-800 text-center my-4">
-        {{ session('success') }}
-    </div>
-@endif
+        @if (session('success'))
+            <div class="alert alert-success text-teal-800 text-center my-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
+
         <form action="{{ route('empleados.store') }}" method="POST">
             @csrf
-                <div class="grid gap-4 px-18  sm:grid-cols-2 sm:gap-6">
-                    <div class="sm:col-span-2 flex space-x-4">
+            <div class="grid gap-4 px-18 sm:grid-cols-2 sm:gap-6">
+            <div class="sm:col-span-2 flex space-x-4">
                     <div class="w-full">
                             <label for="nombre_empleado" class="block mb-2 text-sm font-medium text-gray-900">Nombre Empleado</label>
                             <div class="relative">
@@ -68,6 +70,9 @@
                          <input type="text" name="cedula" id="cedula"
                          class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300" placeholder="30.000-000" required>
                   </div>
+                  @error('cedula')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                 </div>
 
                         <div class="w-full">
@@ -81,13 +86,14 @@
                          <input type="text" name="telefono_empleado" id="telefono_empleado"
                          class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300" placeholder="+00-000-00-00" required>
                   </div>
-                </div>
-                @error('telefono_empleado')
+                  @error('telefono_empleado')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
+                </div>
                     </div>
 
-                        <div class="w-full">
+
+                    <div class="w-full">
                             <label for="direccion_empleado"
                                 class="block mb-2 text-sm font-medium text-gray-900">Dirección Empleado</label>
                             <div class="relative">
@@ -112,10 +118,8 @@
                     </button>
                 </div>
             </form>
-        </div>
-
-        <!-- Table Section -->
-        <h2 class="mb-4 text-3xl font-semibold text-gray-900">Lista Empleados</h2>
+    </div>
+    <h2 class="mb-4 text-3xl font-semibold text-gray-900">Lista Empleados</h2>
         <div class="relative shadow-md rounded-lg overflow-hidden">
             <table class="min-w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-200">
@@ -137,9 +141,9 @@
                         <td class="px-4 py-3 text-gray-900">{{$empleado->apellido_empleado}}</td>
                         <td class="px-4 py-3 text-gray-900">{{$empleado->fecha_nacimiento }}</td>
                         <td class="px-4 py-3 text-gray-900">{{$empleado->cedula}}</td>
-                        <td class="px-4 py-3 text-gray-900">{{$empleado->telefono_empleado}}</td>
-                        <td class="px-4 py-3 text-gray-900">{{$empleado->direccion_empleado}}</td>
-                        <td class="px-4 py-3">
+                        <td class="px-12 py- text-gray-900">{{$empleado->telefono_empleado}}</td>
+                        <td class="px-8 py-3 text-gray-900">{{$empleado->direccion_empleado}}</td>
+                        <td class="px-4 py-3"> 
 
                             <div class="flex items-center space-x-2">
                                 <!-- Botón Editar -->

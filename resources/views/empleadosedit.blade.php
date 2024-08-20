@@ -15,6 +15,7 @@
                             <label for="nombre_empleado" class="block mb-2 text-sm font-medium text-gray-900">Nombre Empleado</label>
                             <div class="relative">
                                 <input type="text" name="nombre_empleado" id="nombre_empleado"
+                                 value="{{ old('nombre_empleado', $empleado->nombre_empleado) }}"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg 
                                     focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"
                                     placeholder="Ejem: Mafer" required>
@@ -29,6 +30,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900">Apellido Empleado</label>
                             <div class="relative">
                                 <input type="text" name="apellido_empleado" id="apellido_empleado"
+                                 value="{{ old('apellido_empleado', $empleado->apellido_empleado) }}"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"
                                     placeholder="Ejem: Garcia" required>
                             </div>
@@ -56,11 +58,13 @@
                         <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900">Cedula</label>
                      <div class="relative">
                      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                     
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                        <path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                      </svg>
                             </div>
                          <input type="text" name="cedula" id="cedula"
+                          value="{{ old('cedula', $empleado->cedula) }}"
                          class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300" placeholder="30.000-000" required>
                   </div>
                 </div>
@@ -74,6 +78,7 @@
                      </svg>
                             </div>
                          <input type="text" name="telefono_empleado" id="telefono_empleado"
+                         value="{{ old('telefono_empleado', $empleado->telefono_empleado) }}"
                          class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300" placeholder="+00-000-00-00" required>
                   </div>
                 </div>
@@ -92,6 +97,7 @@
                             </svg>
                             </div>
                                 <input type="text" name="direccion_empleado" id="direccion_empleado"
+                                value="{{ old('direccion_empleado', $empleado->direccion_empleado) }}"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"
                                     placeholder="Municipio-Parroquia" required>
                             </div>

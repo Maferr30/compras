@@ -92,8 +92,6 @@ class proveedorController extends Controller
             'direccion_empresa' => 'required|string|max:255',
             'correo_proveedor' => 'required|email|max:255|unique:proveedores,correo_proveedor,'.$id.',idProveedores',
             'rif' => 'required|string|max:20|unique:proveedores,rif,'.$id.',idProveedores',
-            'categorias' => 'required|array|min:1',
-            'categorias.*' => 'exists:categorias,idcategorias',
         ], [
             'nombre_empresa.required' => 'El nombre de la empresa es obligatorio.',
             'nombre_empresa.string' => 'El nombre de la empresa debe ser texto.',
@@ -108,9 +106,6 @@ class proveedorController extends Controller
             'rif.required' => 'El RIF es obligatorio.',
             'rif.string' => 'El RIF debe ser texto.',
             'rif.unique' => 'Este RIF ya está registrado.',
-            'categorias.required' => 'Debes seleccionar al menos una categoría.',
-            'categorias.array' => 'Las categorías deben ser un arreglo.',
-            'categorias.min' => 'Debes seleccionar al menos una categoría.',
         ]);;
     
         $proveedor->update([
