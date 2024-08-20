@@ -20,7 +20,8 @@
                     <div class="w-full">
                             <label for="fecha_devolucion" class="block mb-2 text-sm font-medium text-gray-900">Fecha de Devolucion</label>
                             <div class="relative">
-                                <input type="date" name="fecha_devolucion" id="fecha_devolucion"
+                                 <!-- Establece la fecha actual en el campo y tambien Hace que el campo no sea editable -->
+                                <input type="date" name="fecha_devolucion" id="fecha_devolucion" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" readonly
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"required>
                             </div>
                             @error('fecha_devolucion')
@@ -151,7 +152,7 @@
                 <tbody>
                     @foreach ( $devo as $item )
                     <tr class="bg-white border-b">
-                        <td class="px-4 py-3 text-gray-900">{{$item->fecha_devolucion}}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->fecha_devolucion)->format('Y-m-d') }}</td>
                         <td class="px-4 py-3 text-gray-900">{{$item->idRecepcion_mercancia}}</td>
                         <td class="px-4 py-3 text-gray-900">{{$item->nombre_suministro}}</td>
                         <td class="px-4 py-3 text-gray-900">{{$item->status}}</td>

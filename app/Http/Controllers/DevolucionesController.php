@@ -25,14 +25,44 @@ WHERE 1;");
   
       public function create(Request $request)
       {
-          // Validaciones
+          // Validaciones de la interfaz devoluciones :D
           $validatedData = $request->validate([
               'fecha_devolucion' => 'required|date',
               'status' => 'required|string|max:255',
-              'cantidad_devuelta' => 'required|integer|min:1',
-              'motivo' => 'required|string|max:255',// Usar el nombre correcto de la columna
+              'cantidad_devuelta' => 'required|integer|min:1|max:500',
+              'motivo' => 'required|string|max:100',
+              'recepcion' => 'required|exists:recepciones_mercancias,idRecepcion_mercancia',
+              'suministro' => 'required|exists:suministros,idSuministro',
+              'empleado' => 'required|exists:empleados,idEmpleados',
+          ], [
+              'fecha_devolucion.required' => 'La fecha de devolución es obligatoria.',
+              'fecha_devolucion.date' => 'La fecha de devolución debe ser una fecha válida.',
+              'status.required' => 'El estado es obligatorio.',
+              'status.string' => 'El estado debe ser una cadena de texto.',
+              'status.max' => 'El estado no debe exceder los 100 caracteres.',
+              'cantidad_devuelta.required' => 'La cantidad devuelta es obligatoria.',
+              'cantidad_devuelta.integer' => 'La cantidad devuelta debe ser un número entero.',
+              'cantidad_devuelta.min' => 'La cantidad devuelta debe ser al menos 1.',
+              'cantidad_devuelta.max' => 'La cantidad devuelta no puede exceder los 500 suministros.',
+              'motivo.required' => 'El motivo es obligatorio.',
+              'motivo.string' => 'El motivo debe ser una cadena de texto.',
+              'motivo.max' => 'El motivo no debe exceder los 255 caracteres.',
+              'recepcion.required' => 'La recepción de mercancía es obligatoria.',
+              'recepcion.exists' => 'La recepción de mercancía seleccionada no existe.',
+              'suministro.required' => 'El suministro es obligatorio.',
+              'suministro.exists' => 'El suministro seleccionado no existe.',
+              'empleado.required' => 'El empleado es obligatorio.',
+              'empleado.exists' => 'El empleado seleccionado no existe.',
           ]);
-  
+      
+          // Validación para evitar duplicación de ID de recepción de mercancía
+          $existeDevolucion = DB::table('devoluciones')
+              ->where('Recepciones_mercancias_idRecepcion_mercancia', $request->input('recepcion'))
+              ->exists();
+      
+          if ($existeDevolucion) {
+              return redirect()->back()->withErrors(['recepcion' => 'Ya existe una devolución registrada con este ID de recepción de mercancía.']);
+          }
           try {
               // Inserción en la tabla devoluciones
               $devolucion = DB::table('devoluciones')->insertGetId([
