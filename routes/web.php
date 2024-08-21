@@ -47,6 +47,9 @@ Route::get('/devolucion', function () {
 
 Route::get('/devolucion', [DevolucionesController::class, 'devolucion'])->name('devolucion');
 Route::post('/devolucion/create', [DevolucionesController::class, 'create'])->name('devolucion.create');
+Route::get('/devolucion/{devoluciones}/edit', [DevolucionesController::class, 'edit'])->name('devolucion.edit');
+Route::put('/devolucion/{id}', [DevolucionesController::class, 'update'])->name('devolucion.update');
+Route::delete('/devoluciones/recepcion/{idRecepcion}', [DevolucionesController::class, 'destroyByRecepcionId'])->name('devolucion.destroyByRecepcionId');
 
 
 // Ruta empleados
