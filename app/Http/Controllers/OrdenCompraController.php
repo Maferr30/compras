@@ -34,7 +34,7 @@ class OrdenCompraController extends Controller
     public function store(Request $request)
     {
          $request->validate([
-            'fecha_emision' =>'required|date|after_or_equal:today',
+            'fecha_emision' =>'required|date',
             'fecha_entraga' => 'required|date|after_or_equal:today',
             'Empleados_idEmpleados' => 'required|exists:empleados,idEmpleados',
             'Suministros_idSuministro' => 'required|exists:suministros,idSuministro',

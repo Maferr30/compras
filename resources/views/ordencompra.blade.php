@@ -21,7 +21,7 @@
                             <label for="fecha_emision" class="block mb-2 text-sm font-medium text-gray-900">Fecha
                                 Emision</label>
                             <div class="relative">
-                                <input type="date" name="fecha_emision" id="fecha_emision"
+                                <input type="date" name="fecha_emision" id="fecha_emision" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" readonly
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full  p-2.5 hover:border-rose-300"
                                     required>
                             </div>
