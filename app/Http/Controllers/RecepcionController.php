@@ -34,7 +34,20 @@ WHERE 1;");
             'cantidad' => 'required|integer|min:1|max:500',
             'Empleados_idEmpleados' => 'required|exists:empleados,idEmpleados',
             'idOrden_compra' => 'required|exists:ordenes_compras,idOrden_compra',
-       
+        ], [
+            'fecha_recepcion.required' => 'La fecha de recepción es obligatoria.',
+            'fecha_recepcion.date' => 'La fecha de recepción debe ser una fecha válida.',
+            'status.required' => 'El estado es obligatorio.',
+            'status.string' => 'El estado debe ser una cadena de texto.',
+            'status.max' => 'El estado no puede tener más de 50 caracteres.',
+            'cantidad.required' => 'La cantidad recibida es obligatoria.',
+            'cantidad.integer' => 'La cantidad recibida debe ser un número entero.',
+            'cantidad.min' => 'La cantidad recibida debe ser al menos 1.',
+            'cantidad.max' => 'La cantidad recibida no puede ser más de 500.',
+            'Empleados_idEmpleados.required' => 'Debe seleccionar un empleado.',
+            'Empleados_idEmpleados.exists' => 'El empleado seleccionado no es válido.',
+            'idOrden_compra.required' => 'Debe seleccionar una orden de compra.',
+            'idOrden_compra.exists' => 'La orden de compra seleccionada no es válida.',
         ]);
     
         try {
