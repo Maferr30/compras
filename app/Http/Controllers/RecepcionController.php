@@ -27,6 +27,16 @@ WHERE 1;");
     }
     public function create(Request $request)
     {
+        // Validaciones de la interfaz recepciones :D
+        $validatedData = $request->validate([
+            'fecha_recepcion' => 'required|date',
+            'status' => 'required|string|max:50',
+            'cantidad' => 'required|integer|min:1|max:500',
+            'Empleados_idEmpleados' => 'required|exists:empleados,idEmpleados',
+            'idOrden_compra' => 'required|exists:ordenes_compras,idOrden_compra',
+       
+        ]);
+    
         try {
             // Inserción en la tabla recepcion de mercancia
             $recepcion = DB::table('recepciones_mercancias')->insertGetId([
@@ -36,9 +46,9 @@ WHERE 1;");
                 'Empleados_idEmpleados' => $request->input('Empleados_idEmpleados'),
                 'Ordenes_compras_idOrden_compra' => $request->input('idOrden_compra'),
             ]);
-
+    
             // Redirigir con un mensaje de éxito
-            return redirect()->back()->with('success', 'Recepcion creada exitosamente.');
+            return redirect()->back()->with('success', 'Recepción creada exitosamente.');
         } catch (\Throwable $th) {
             // Redirigir con un mensaje de error
             return redirect()->back()->with('danger', 'Error en envío: ' . $th->getMessage());
