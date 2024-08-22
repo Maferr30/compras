@@ -25,17 +25,16 @@ class OrdenCompraController extends Controller
     return view('ordencompra', compact('empleados', 'suminis', 'pro', 'ordenesCompra'));
     }
 
-    public function pdf(){
-
-        $ordenesCompra = OrdenesCompra::all();
-        $pdf = Pdf::loadView('ordencompra.pdf', compact('ordenesCompra'));
-        return $pdf->stream('ordencompra.pdf');
+    public function pdf($id){
+        $ordenCompra = OrdenesCompra::findOrFail($id);
+        $pdf = Pdf::loadView('ordencompra.pdf', compact('ordenCompra'));
+        return $pdf->stream('ordencompra_' . $ordenCompra->id . '.pdf');
     }
     
     public function store(Request $request)
     {
          $request->validate([
-            'fecha_emision' =>'required|date|after_or_equal:today',
+            'fecha_emision' =>'required|date',
             'fecha_entraga' => 'required|date|after_or_equal:today',
             'Empleados_idEmpleados' => 'required|exists:empleados,idEmpleados',
             'Suministros_idSuministro' => 'required|exists:suministros,idSuministro',
