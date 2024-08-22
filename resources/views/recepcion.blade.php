@@ -20,7 +20,7 @@
                     <div class="w-full">
                             <label for="fecha_recepcion" class="block mb-2 text-sm font-medium text-gray-900">Fecha Recepcion</label>
                             <div class="relative">
-                                <input type="date" name="fecha_recepcion" id="fecha_recepcion"
+                                <input type="date" name="fecha_recepcion" id="fecha_recepcion" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" readonly
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"required>
                             </div>
                             @error('fecha_recepcion')

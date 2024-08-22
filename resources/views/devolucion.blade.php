@@ -145,9 +145,7 @@
                         <th scope="col" class="px-4 py-3">Motivo</th>
                         <th scope="col" class="px-4 py-3">Empleado</th>
                         <th scope="col" class="px-4 py-3">Acciones</th>
-                    </tr>
-                   
-                    
+                    </tr>  
                 </thead>
                 <tbody>
                     @foreach ( $devo as $item )
@@ -161,21 +159,24 @@
                         <td class="px-4 py-3 text-gray-900">{{$item->nombre_empleado}} {{$item->apellido_empleado}}</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-2">
-                                <!-- Botón Cancelar -->
-                                <button class="flex items-center text-blue-600 hover:underline mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700" 
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"></path>
-                                </svg>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                 <!-- Botón Cancelar -->
+                                 <form action="{{ route('devolucion.destroyByRecepcionId', $item->idRecepcion_mercancia) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                 <button type="submit" class="flex items-center text-blue-600 hover:underline mr-4"
+                                 onclick="return confirm('¿Estás seguro de que quieres cancelar y eliminar esta devolución?');">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700" 
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-
-    </div>
-</section>
-@endsection
+    </section>
+    @endsection
