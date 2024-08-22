@@ -49,6 +49,15 @@ WHERE 1;");
             'idOrden_compra.required' => 'Debe seleccionar una orden de compra.',
             'idOrden_compra.exists' => 'La orden de compra seleccionada no es válida.',
         ]);
+
+        // Validación para evitar duplicación de ID de orden de compra
+        $existeOrdenCompra = DB::table('recepciones_mercancias')
+            ->where('Ordenes_compras_idOrden_compra', $request->input('idOrden_compra'))
+            ->exists();
+    
+        if ($existeOrdenCompra) {
+            return redirect()->back()->withErrors(['idOrden_compra' => 'Ya existe una recepción registrada con esta orden de compra.']);
+        }
     
         try {
             // Inserción en la tabla recepcion de mercancia
