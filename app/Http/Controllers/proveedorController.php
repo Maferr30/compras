@@ -33,7 +33,7 @@ class proveedorController extends Controller
             'telefono_proveedor.unique' => 'El teléfono del proveedor ya está registrado.',
             'rif.required' => 'El RIF es obligatorio.',
             'rif.unique' => 'Este RIF ya está registrado.',
-            'rif.regex' => 'El formato del RIF no es válido. Debe ser J-45678932-9.',
+            'rif.regex' => 'El formato del RIF no es válido. Debe ser J-456789329.',
             'direccion_empresa.required' => 'La dirección de la empresa es obligatoria.',
             'correo_proveedor.required' => 'El correo del proveedor es obligatorio.',
             'correo_proveedor.email' => 'El correo del proveedor debe ser una dirección válida.',

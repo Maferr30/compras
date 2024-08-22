@@ -86,7 +86,7 @@
                             <label for="rif" class="block mb-2 text-sm font-medium text-gray-900">Rif</label>
                             <input type="text" name="rif" id="rif"
                                 class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full p-2.5 hover:border-rose-300"
-                                placeholder="J-12345678-1" required>
+                                placeholder="J-123456781" required>
                             @error('rif')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
