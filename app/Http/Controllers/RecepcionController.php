@@ -75,32 +75,21 @@ WHERE 1;");
             // Redirigir con un mensaje de error
             return redirect()->back()->with('danger', 'Error en envío: ' . $th->getMessage());
         }
-    }
-    public function edit($id)
+    }   
+
+    // Método para eliminar una recepcion
+
+    public function destroyByCompraId($idCompra)
     {
-        $recepcion = RecepcionesMercancia::find($id);
-        if (!$recepcion) {
-            return redirect()->route('recepcion.create')->with('error', 'Recepcion no encontrada.');
+        // Busca la recepcion por la ID de orden de compra
+        $recepcion = RecepcionesMercancia::where('Ordenes_compras_idOrden_compra', $idCompra)->first();
+    
+        if ($recepcion) {
+            $recepcion->delete();
+             // Se elimina la recepcion correctamente como debe ser 
+            return redirect()->route('recepcion')->with('success', 'Recepción eliminada correctamente.');
         }
-    
-        $ordenCompra = OrdenesCompra::all();
-        $empleado = Empleado::all();
-        $proveedor = Proveedore::all();
-        return view('recepcionedit', compact('recepcion', 'ordenCompra', 'empleado', 'proveedor'));
-    }    
-    public function update(Request $request, $id)
-    {
-        $recepcion = RecepcionesMercancia::findOrFail($id);
-    
-        $recepcion->fecha_recepcion = $request->input('fecha_recepcion');
-        $recepcion->status = $request->input('status');
-        $recepcion->cantidad_recibida = $request->input('cantidad');
-        $recepcion->Empleados_idEmpleados = $request->input('Empleados_idEmpleados');
-        $recepcion->Ordenes_compras_idOrden_compra = $request->input('idOrden_compra');
-    
-        $recepcion->save();
-    
-        return redirect()->route('recepcion.edit', $id)->with('success', 'La recepción ha sido actualizada correctamente.');
+
+        return redirect()->route('recepcion')->with('error', 'Recepción no encontrada.');
     }
-    
 }
