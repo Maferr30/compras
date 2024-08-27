@@ -15,7 +15,7 @@
                             <label for="fecha_emision" class="block mb-2 text-sm font-medium text-gray-900">Fecha
                                 Emision</label>
                             <div class="relative">
-                                <input type="date" name="fecha_emision" id="fecha_emision"
+                                <input type="date" name="fecha_emision" id="fecha_emision" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" readonly
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full  p-2.5 hover:border-rose-300"
                                     required>
                             </div>
@@ -86,7 +86,7 @@
                                 </div>
                                 <input type="number" name="cantidad_pedida" id="cantidad_pedida"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"
-                                    required>
+                                    value="{{ old('cantidad_pedida', $ordenCompra->cantidad_pedida) }}" required>
                             </div>
                             @error('cantidad_pedida')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -100,7 +100,7 @@
                             <div class="relative">
                                 <input type="text" name="cantidad_total" id="cantidad_total"
                                     class="bg-white border border-rose-200 text-black-900 text-sm rounded-lg focus:ring-primary-600 focus:border-rose-300 block w-full pl-10 p-2.5 hover:border-rose-300"
-                                    placeholder="0000" required>
+                                    value="{{ old('$ordenCompra->cantidad_total', $ordenCompra->cantidad_total) }}" required>
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500"
                                         viewBox="0 0 20 20" fill="currentColor">
